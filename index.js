@@ -27,7 +27,7 @@ app.use('/quest1', async (req, res) => {
 
 app.use('/quest2', async (req, res) => {
 	const result = await taskController.quest2('2024-10-01');
-	//console.log(result)
+	console.log(result)
 	return res.render('quest2', { pageTitle: 'Quest 2', result: result });
 });
 
