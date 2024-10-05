@@ -1,0 +1,24 @@
+<%- include('./includes/head.ejs') %>
+
+<div class="main-body">
+	<p>Liệt kê thông tin của các công ty cùng với tổng số tiền mỗi tháng tính đến thời điểm hiện tại mà các công ty phải trả bao gồm tiền thuê mặt bằng (diện tích mặt bằng nhân đơn giá) và tổng tiền dịch vụ. Danh sách công ty được sắp xếp theo thứ tự giảm dần các chi phí.</p>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>STT</th>
+				<th>Name</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%for(let i = 0; i < companies.length; i++){%>
+				<tr>
+					<td><%-i + 1%></td>
+					<td><%-companies[i].name%></td>
+					<td><%-companies[i].totalBill%></td>
+				</tr>
+			<%}%>
+		</tbody>
+	</table>
+</div>
+<%- include('./includes/end.ejs') %>
