@@ -15,6 +15,10 @@ const config = {
 		Manager_1: 0.35,
 		Manager_2: 0.4,
 		Manager_3: 0.45,
+	},
+
+	formatVND(value) {
+		return value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })
 	}
 }
 

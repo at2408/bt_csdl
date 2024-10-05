@@ -17,7 +17,8 @@ app.set('views', 'views')
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', async (req, res, next) => {
-    next();
+    //res.render('index', { pageTitle: 'Homepage'});
+	next()
 });
 
 app.use('/quest1', async (req, res) => {
@@ -27,21 +28,13 @@ app.use('/quest1', async (req, res) => {
 
 app.use('/quest2', async (req, res) => {
 	const result = await taskController.quest2('2024-10-01');
-	console.log(result)
-	return res.render('quest2', { pageTitle: 'Quest 2', result: result });
+	return res.render('quest2', { pageTitle: 'Quest 2', data: result });
 });
 
 app.use('/quest3', async (req, res) => {
 	const result = await taskController.quest3();
-	//console.log(result)
-	return res.render('quest3', { pageTitle: 'Quest 3', result: result });
+	return res.render('quest3', { pageTitle: 'Quest 3', data: result });
 });
-
-app.use('/product', (req, res, next) => {
-    console.log("In the middleware product");
-    //res.send('<h1>Hello from Express!</h1>');
-    res.render('product', { pageTitle: 'Add Product'})
-})
 
 mongoose.connect(config.MONGO_URI, {})
 	.then(() => {

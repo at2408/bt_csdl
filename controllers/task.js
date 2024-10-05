@@ -7,6 +7,7 @@ const PipelineStage = require("mongoose")
 const UNIT_PRICE = config.UNIT_PRICE
 const SALARY_BASE = config.SALARY_BASE
 const SalaryRate = config.SalaryRate
+const formatVND = config.formatVND
 
 exports.quest1 = async() => {
 	const companies = await CompanyModel.aggregate([
@@ -90,15 +91,16 @@ exports.quest1 = async() => {
 				totalBill: -1,
 			},
 		},
-	])
+	]).limit(10)
 
-	//console.log(companies)
+	for(let company of companies) {
+		company.totalBill = formatVND(company.totalBill)
+	}
 	return companies
 }
 
 
 exports.quest2 = async (dateInput) => {
-	console.log(dateInput)
 	if (!dateInput) {
 	  return "Please provide a date"
 	}
@@ -229,8 +231,19 @@ exports.quest2 = async (dateInput) => {
 				},
 			},
 		},
-	])
-	return checkCounterByDate
+	]).limit(10)
+	
+	let result = checkCounterByDate.map(check => {
+		return {
+			employeeName: check.employee.name,
+			employeeOfCompany: check.employeeOfCompany,
+			checkInTime: check.checkInRecord.length > 0 ? moment(check.checkInRecord[0].checkTime).format('MM/DD/YYYY HH:mm:ss') : '',
+			checkInDestination: check.checkInRecord.length > 0 ? check.checkInRecord[0].checkDestination : '',
+			checkOutTime: check.checkOutRecord.length > 0 ? moment(check.checkOutRecord[0].checkTime).format('MM/DD/YYYY HH:mm:ss') : '',
+			checkOutDestination: check.checkOutRecord.length > 0 ? check.checkOutRecord[0].checkDestination : '',
+		}
+	})
+	return result
 }
 
 exports.quest3 = async () => {
@@ -381,7 +394,16 @@ exports.quest3 = async () => {
 			},
 		},
 	]
-	const records = await towerServiceRecordModel.aggregate(pipeline)
-	console.log(records)
-	return records
+	const records = await towerServiceRecordModel.aggregate(pipeline).limit(10)
+	const result = records.map(record => {
+		return {
+			startDate: moment(record._id.startDate).format('MM/DD/YYYY'),
+			endDate: moment(record._id.endDate).format('MM/DD/YYYY'),
+			employee: record.employee,
+			salary: formatVND(record.salary),
+			serviceName: record.serviceName.join(', ')
+		}
+	});
+
+	return result
   }

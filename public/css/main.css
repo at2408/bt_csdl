@@ -1,3 +1,16 @@
+.header {
+    text-align: center;
+    background-color: #2b3647;
+    color: #ffc000;
+}
+
+.header p {
+    font-size: 40px;
+    font-weight: 600;
+}
+
 .main-body {
+    padding-top: 50px;
     margin: auto;
+    width: 80%;
 }

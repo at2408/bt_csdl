@@ -1,0 +1,28 @@
+<%- include('./includes/head.ejs') %>
+
+<div class="main-body">
+	<p>Kiểm tra thông tin của mỗi nhân viên của các công ty cùng với số lần và vị trí ra/vào toà nhà trong ngày của họ.</p>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>STT</th>
+				<th>Employee Name</th>
+				<th>Company</th>
+				<th>Check In</th>
+				<th>Check Out</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%for(let i = 0; i < data.length; i++){%>
+				<tr>
+					<td><%-i + 1%></td>
+					<td><%-data[i].employeeName%></td>
+					<td><%-data[i].employeeOfCompany%></td>
+					<td><%-data[i].checkInDestination%> - <%-data[i].checkInTime%></td>
+					<td><%-data[i].checkOutDestination%> - <%-data[i].checkOutTime%></td>
+				</tr>
+			<%}%>
+		</tbody>
+	</table>
+</div>
+<%- include('./includes/end.ejs') %>

@@ -1,0 +1,30 @@
+<%- include('./includes/head.ejs') %>
+
+<div class="main-body">
+	<p>Liệt kê thông tin của các nhân viên toà nhà cùng lương tháng của họ. Một nhân viên toà nhà có thể đổi vị trí (bậc công việc, và tên dịch vụ) làm việc theo mỗi tháng khác nhau.</p>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>STT</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Employee Name</th>
+				<th>Salary</th>
+				<th>Service Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%for(let i = 0; i < data.length; i++){%>
+				<tr>
+					<td><%-i + 1%></td>
+					<td><%-data[i].startDate%></td>
+					<td><%-data[i].endDate%></td>
+					<td><%-data[i].employee%></td>
+					<td><%-data[i].salary%></td>
+					<td><%-data[i].serviceName%></td>
+				</tr>
+			<%}%>
+		</tbody>
+	</table>
+</div>
+<%- include('./includes/end.ejs') %>
